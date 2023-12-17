@@ -18,7 +18,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <ThemeProvider>
+      <ThemeProvider 
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+      >
         <body className={inter.className}>{children}</body>
         <Toaster />
       </ThemeProvider>
