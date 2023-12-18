@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import LoginModels from "../models/loginModels";
+import LoginModels from "../models/LoginModels";
 
 export const ModelProvider = () => {
     const [isMounted, setIsMounted] = useState(false);

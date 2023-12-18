@@ -1,7 +1,7 @@
 "use client"
 
 import { useModal } from '@/hooks/useModel.store'
-import React from 'react'
+import React, { useState } from 'react'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog';
 import { AlertDialogHeader } from '../ui/alert-dialog';
 import {
@@ -13,15 +13,11 @@ import {
 import LoginForm from '../LoginForm';
 import RegisterForm from '../RegisterForm';
 
-export default function LoginModels() {
-  const model = useModal();
-  const isOpen = model.isOpen && model.type === "Login";
-  const handleClose = () => {
-     model.onClose();
-  }
+
+export default function IntialModel() {
   return (
-   <Dialog open={isOpen} onOpenChange={handleClose}>
-  <DialogContent>
+  <Dialog open>
+   <DialogContent>
       <Tabs defaultValue='login' className='pt-10'>
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="login">login</TabsTrigger>
@@ -34,7 +30,7 @@ export default function LoginModels() {
         <RegisterForm redirect={false} />
       </TabsContent>
       </Tabs>
-  </DialogContent>
+    </DialogContent>
    </Dialog>
   )
 }
