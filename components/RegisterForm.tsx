@@ -90,6 +90,7 @@ export default function RegisterForm({redirect}: {redirect: boolean}) {
    }
    
    if (role === UserRole.EMPLOYER && (!form.getValues("companyId") && (!form.getValues("companyIndustry") || !form.getValues("companyDescription") || !form.getValues("companyName")))) {
+    console.log(form.getValues("companyIndustry"))
     return Toast.error("provide a Company Where you work");
    }
    setIsLoading(true);

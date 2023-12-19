@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type modelType = "Login";
+export type modelType = "Login" | "addJob";
 
 interface modelStore {
   type: modelType | null;

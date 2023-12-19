@@ -23,7 +23,6 @@ export default async function getCurrentUser() {
     if (!user) {
       return null;
     }
-    console.log(user);
     return user;
   } catch (e) {
     return null;

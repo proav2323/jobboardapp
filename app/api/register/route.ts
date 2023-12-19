@@ -19,7 +19,10 @@ export async function POST(req: Request) {
       companyId,
     } = await req.json();
 
-    const doCreateCompany = companyId ? true : false;
+    const doCreateCompany =
+      companyId !== "" && companyId !== null && companyId !== undefined
+        ? true
+        : false;
 
     if (role === UserRole.JOB_SEEKER && !resume) {
       return new NextResponse("provide a resume", { status: 404 });
@@ -27,12 +30,23 @@ export async function POST(req: Request) {
 
     if (
       role === UserRole.EMPLOYER &&
-      (!companyId || !companyIndustry || !companyDescription || !companyName)
+      !companyId &&
+      (!companyIndustry || !companyDescription || !companyName)
     ) {
-      return new NextResponse("provide a company", { status: 404 });
+      return new NextResponse("provide a company please", { status: 404 });
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
+    let company = null;
+    if (!doCreateCompany) {
+      company = await db.company.create({
+        data: {
+          name: companyName,
+          description: companyDescription,
+          industry: companyIndustry,
+        },
+      });
+    }
 
     const userData = await db.user.create({
       data: {
@@ -45,19 +59,7 @@ export async function POST(req: Request) {
           role === UserRole.EMPLOYER
             ? doCreateCompany
               ? companyId
-              : undefined
-            : undefined,
-        company:
-          role === UserRole.EMPLOYER
-            ? doCreateCompany
-              ? {
-                  create: {
-                    name: companyName,
-                    description: companyDescription,
-                    industry: companyIndustry,
-                  },
-                }
-              : undefined
+              : company?.id
             : undefined,
       },
     });
