@@ -9,5 +9,5 @@ export const AddJobSchema = z.object({
   requirements: z.string().min(1, {
     message: "requirements is required",
   }),
-  deadline: z.date().default(new Date(Date.now())),
+  deadline: z.date(),
 });

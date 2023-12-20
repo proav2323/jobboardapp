@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 export type modelType = "Login" | "addJob";
 
-interface modelStore {
+export interface modelStore {
   type: modelType | null;
   data: modelData;
   isOpen: boolean;

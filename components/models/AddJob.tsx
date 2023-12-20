@@ -13,6 +13,7 @@ import {
 import LoginForm from '../LoginForm';
 import RegisterForm from '../RegisterForm';
 import AddJobForm from '../AddJobForm';
+import Heading from '../Heading';
 
 
 export default function AddJob() {
@@ -21,7 +22,8 @@ export default function AddJob() {
   return (
   <Dialog open={isOpen} onOpenChange={() => model.onClose()}>
    <DialogContent>
-       <AddJobForm />
+    <Heading title='Add A New Job' subtitle='ned to hire someone for partiular job?' center />
+       <AddJobForm model={model} />
     </DialogContent>
    </Dialog>
   )
