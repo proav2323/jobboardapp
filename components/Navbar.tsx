@@ -34,7 +34,7 @@ const SignOut = async() => {
 }
 
   return (
-    <div className={cn(` drop-shadow-lg transition duration-300 ease-in-out flex flex-row justify-between items-center p-4 w-full sticky top-0`, doBackground? "dark:bg-neutral-900/50 bg-neutral-300" : "bg-transparent")}>
+    <div className={cn(` z-50 drop-shadow-lg transition duration-300 ease-in-out flex flex-row justify-between items-center p-4 w-full fixed top-0`, doBackground? "dark:bg-neutral-900/50 bg-neutral-300" : "bg-transparent")}>
       <Logo  />
   <div className='flex flex-row items-center gap-2'>
     {currentUser.role === UserRole.JOB_SEEKER && (<Popover>
