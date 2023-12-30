@@ -25,7 +25,7 @@ export async function POST(req: Request) {
         requirements: requirements,
       },
     });
-
+    console.log(job);
     return NextResponse.json(job);
   } catch (err: any) {
     return new NextResponse(err.message);

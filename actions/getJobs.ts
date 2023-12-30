@@ -18,6 +18,14 @@ export default async function getJobs() {
 
       jobs = await db.job.findMany({
         where: { companyId: currentUser.companyId },
+        include: {
+          company: {
+            include: {
+              jobs: true,
+              Users: true,
+            },
+          },
+        },
       });
     } else {
       jobs = await db.job.findMany({
@@ -26,9 +34,21 @@ export default async function getJobs() {
             gte: new Date(Date.now()),
           },
         },
+        include: {
+          company: {
+            include: {
+              jobs: true,
+            },
+          },
+        },
       });
     }
-    return jobs;
+
+    if (jobs) {
+      return jobs;
+    } else {
+      return [];
+    }
   } catch (er) {
     console.log(er);
     return [];
