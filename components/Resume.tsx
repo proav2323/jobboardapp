@@ -67,7 +67,7 @@ export default function Resume({resume, onChange, disabled}: {resume?: string, o
   }
   return (
     <div className='flex flex-col justify-center items-center w-full p-2'>
-      {resume !== "" ? (
+      {resume !== "" && resume !== undefined && resume !== null ? (
         <div className='flex bg-neutral-600 p-4 rounded-md cursor-pointer'>
           <a href={resume} target="_blank" rel="noreferrer">Your View Resume</a>
           <Cross className='mx-2' onClick={() => onChange("resume", "")} />
