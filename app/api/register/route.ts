@@ -38,7 +38,7 @@ export async function POST(req: Request) {
 
     const hashedPassword = await bcrypt.hash(password, 12);
     let company = null;
-    if (!doCreateCompany) {
+    if (!doCreateCompany && role === UserRole.EMPLOYER) {
       company = await db.company.create({
         data: {
           name: companyName,
