@@ -31,15 +31,10 @@ export default function RegisterForm({redirect}: {redirect: boolean}) {
         {
             resolver: zodResolver(RegisterFormSchema),
             defaultValues: {
-                companyName: "",
-                companyDescription: "",
-                companyIndustry: "",
                 email: "",
                 password: "",
                 Name: "",
                 role: UserRole.JOB_SEEKER,
-                resume: "",
-                companyId: "",
             }
         }
     )
