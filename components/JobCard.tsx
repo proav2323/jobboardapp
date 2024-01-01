@@ -35,7 +35,7 @@ export default function JobCard({job, currentUser}: {job: jobWithCompanyWIthJobs
 
     setIsLoading(true);
 
-     axios.put(`/api/job/${job.id}`, {saved: true}).then(() => {
+     axios.put(`/api/job/${job.id}`).then(() => {
        toast.success("job saved");
        model.onClose();
      }).catch((err) => {

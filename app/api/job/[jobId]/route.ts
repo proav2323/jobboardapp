@@ -1,5 +1,6 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/lib/prismadb";
+import { UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function PUT(
@@ -8,13 +9,12 @@ export async function PUT(
 ) {
   try {
     const currentUser = await getCurrentUser();
-    const { saved } = await Req.json();
 
-    if (!currentUser) {
+    if (!currentUser || currentUser.role === UserRole.EMPLOYER) {
       return new NextResponse("unauthorized", { status: 401 });
     }
 
-    if (saved === null || saved === undefined || !params.jobId) {
+    if (!params.jobId) {
       return new NextResponse("soemhting went wrong", { status: 401 });
     }
 

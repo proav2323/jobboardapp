@@ -29,7 +29,7 @@ export default function JobSeekerJobDetails({job}: {job: jobWithCompanyWIthJobsW
      event.stopPropagation();
      event.preventDefault();
 
-     axios.put(`/api/job/${job.id}`, {saved: true}).then(() => {
+     axios.put(`/api/job/${job.id}`).then(() => {
        toast.success("job saved");
        model.onClose();
      }).catch((err) => {
