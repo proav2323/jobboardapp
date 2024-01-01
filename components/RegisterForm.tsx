@@ -23,7 +23,7 @@ enum steps {
     COMPANY = 3,
 }
 export default function RegisterForm({redirect}: {redirect: boolean}) {
-    const [step, setStep] = useState(steps.INFO);
+  const [step, setStep] = useState(steps.INFO);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -94,7 +94,7 @@ export default function RegisterForm({redirect}: {redirect: boolean}) {
     if (redirect) {
       router.push('/');
      } else {
-     router.refresh();
+     router.push("/");
      }
    }).catch((err) => {
      Toast.error(err.response.data);
