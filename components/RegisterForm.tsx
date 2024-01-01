@@ -90,12 +90,7 @@ export default function RegisterForm({redirect}: {redirect: boolean}) {
    }
    setIsLoading(true);
    axios.post("/api/register", values).then(() => {
-     Toast.success("register successfull");
-    if (redirect) {
-      router.push('/');
-     } else {
-     router.push("/");
-     }
+     Toast.success("register successfull! login now");
    }).catch((err) => {
      Toast.error(err.response.data);
    }).finally(() => {

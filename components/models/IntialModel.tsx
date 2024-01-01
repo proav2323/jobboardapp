@@ -19,7 +19,7 @@ export default function IntialModel() {
   <Dialog open>
    <DialogContent>
       <Tabs defaultValue='login' className='pt-10'>
-      <TabsList className="grid w-full grid-cols-2">
+      <TabsList className="grid w-full grid-cols-2" defaultValue={"login"}>
         <TabsTrigger value="login">login</TabsTrigger>
         <TabsTrigger value="sign up">Sign up</TabsTrigger>
       </TabsList>
