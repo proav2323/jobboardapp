@@ -91,6 +91,7 @@ export default function RegisterForm({redirect}: {redirect: boolean}) {
    setIsLoading(true);
    axios.post("/api/register", values).then(() => {
      Toast.success("register successfull! login now");
+     router.refresh();
    }).catch((err) => {
      Toast.error(err.response.data);
    }).finally(() => {
