@@ -37,7 +37,7 @@ export default function JobDetailsModel() {
       <Heading title={job.title} subtitle={`${job.title} job details`} />
     </DialogHeader>
         {currentUser.role === UserRole.EMPLOYER ? (
-          <EmployerJobDetails />
+          <EmployerJobDetails job={job} currentUser={currentUser} />
         ) : (
           <JobSeekerJobDetails job={job} />
         )}

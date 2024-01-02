@@ -25,6 +25,22 @@ export default async function getJobs() {
               Users: true,
             },
           },
+          applications: {
+            include: {
+              job: {
+                include: {
+                  company: {
+                    include: {
+                      jobs: true,
+                    },
+                  },
+                  User: true,
+                },
+              },
+              user: true,
+            },
+          },
+          User: true,
         },
       });
     } else {
@@ -40,6 +56,22 @@ export default async function getJobs() {
               jobs: true,
             },
           },
+          applications: {
+            include: {
+              job: {
+                include: {
+                  company: {
+                    include: {
+                      jobs: true,
+                    },
+                  },
+                  User: true,
+                },
+              },
+              user: true,
+            },
+          },
+          User: true,
         },
       });
     }

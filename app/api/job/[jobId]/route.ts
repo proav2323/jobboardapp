@@ -104,7 +104,21 @@ export async function POST(
         },
       },
       include: {
-        applications: true,
+        applications: {
+          include: {
+            job: {
+              include: {
+                company: {
+                  include: {
+                    jobs: true,
+                  },
+                },
+                User: true,
+              },
+            },
+            user: true,
+          },
+        },
       },
     });
 
@@ -120,7 +134,21 @@ export async function POST(
         },
       },
       include: {
-        jobApplications: true,
+        jobApplications: {
+          include: {
+            job: {
+              include: {
+                company: {
+                  include: {
+                    jobs: true,
+                  },
+                },
+                User: true,
+              },
+            },
+            user: true,
+          },
+        },
       },
     });
 
