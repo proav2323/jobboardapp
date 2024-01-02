@@ -63,6 +63,7 @@ export default async function getJobs() {
                   company: {
                     include: {
                       jobs: true,
+                      Users: true,
                     },
                   },
                   User: true,

@@ -27,7 +27,7 @@ export default function JobAppItem({app, currentUser}: {app: appailcatios, curre
 
        axios.put(`/api/job/${jobId}/application/${appId}`, {status: status, clientId: clientId, message}).then(() => {
        toast.success("status chnaged and email sent")
-        router.refresh();
+        router.push("/");
        }).catch((err) => {
         toast.error(err.response.data)
        }).finally(() => {
