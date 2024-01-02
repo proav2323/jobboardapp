@@ -45,7 +45,7 @@ export default function EmployerJobDetails({job, currentUser}: {job: jobWithComp
         <div className='flex flex-col w-full'>
           <ScrollArea className='h-[30vh] w-full mx-auto rounded-md border'>
                 {jobApp.map((app, index) => (
-                   <JobAppItem key={app.id} app={app} currentUser={currentUser} />
+                   <JobAppItem key={app.id} app={app} currentUser={currentUser} job={job} />
                 ))}
           </ScrollArea>
         </div>

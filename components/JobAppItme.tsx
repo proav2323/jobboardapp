@@ -1,19 +1,21 @@
 "use client"
-import { appailcatios } from '@/types'
+import { appailcatios, jobWithCompanyWIthJobsWithUsers } from '@/types'
 import React, { useState } from 'react'
 import { Card, CardContent } from './ui/card'
 import { Button } from './ui/button'
-import { ApplicationStatus, User } from '@prisma/client'
+import { ApplicationStatus, Job, User } from '@prisma/client'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import { useModal } from '@/hooks/useModel.store'
 
 
 
-export default function JobAppItem({app, currentUser}: {app: appailcatios, currentUser: User}) {
+export default function JobAppItem({app, currentUser, job}: {app: appailcatios, currentUser: User, job: jobWithCompanyWIthJobsWithUsers}) {
 
     const [isLaoding, setIsLoading] = useState(false)
     const router = useRouter();
+    const model = useModal();
 
     const rejectNotificationMessage = `your job application on ${app.job.title} job has been rejected`
     const acceptNotificationMessage = `your job application on ${app.job.title} job has been accepted, see your mail`
@@ -27,7 +29,8 @@ export default function JobAppItem({app, currentUser}: {app: appailcatios, curre
 
        axios.put(`/api/job/${jobId}/application/${appId}`, {status: status, clientId: clientId, message}).then(() => {
        toast.success("status chnaged and email sent")
-        router.push("/");
+        router.refresh();
+        model.onClose();
        }).catch((err) => {
         toast.error(err.response.data)
        }).finally(() => {
