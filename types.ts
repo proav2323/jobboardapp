@@ -1,4 +1,10 @@
-import { Company, Job, JobApplication, User } from "@prisma/client";
+import {
+  Company,
+  Job,
+  JobApplication,
+  User,
+  notifications,
+} from "@prisma/client";
 
 export type jobWithCompanyWIthJobsWithUsers = Omit<
   Job,
@@ -14,8 +20,20 @@ export type jobWithCompanyWIthJobsWithUsers = Omit<
 export type appailcatios = Omit<JobApplication, "user" | "job"> & {
   user: User;
   job: Omit<Job, "company" | "User"> & {
-    company: Omit<Company, "jobs"> & {
+    company: Omit<Company, "jobs" | "Users"> & {
       jobs: Job[];
+      Users: User[];
     };
+    User: User;
   };
+};
+
+export type UserWithNotApp = Omit<User, "notifications" | "jobApplications"> & {
+  notifications: notifcatioType[];
+  jobApplications: appailcatios[];
+};
+
+export type notifcatioType = Omit<notifications, "user" | "job"> & {
+  user: User;
+  job: Job;
 };

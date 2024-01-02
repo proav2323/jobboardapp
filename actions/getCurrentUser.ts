@@ -19,6 +19,33 @@ export default async function getCurrentUser() {
       where: {
         email: session.user.email as string,
       },
+      include: {
+        jobApplications: {
+          include: {
+            job: {
+              include: {
+                company: {
+                  include: {
+                    Users: true,
+                    jobs: true,
+                  },
+                },
+                User: true,
+              },
+            },
+            user: true,
+          },
+        },
+        notifications: {
+          orderBy: {
+            CreatedAt: "desc",
+          },
+          include: {
+            user: true,
+            job: true,
+          },
+        },
+      },
     });
     if (!user) {
       return null;

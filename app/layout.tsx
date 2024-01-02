@@ -9,6 +9,7 @@ import Navbar from '@/components/Navbar'
 import { User } from '@prisma/client'
 import getCurrentUser from '@/actions/getCurrentUser'
 import ToasterProvider from '@/components/providers/ToasterPrivder'
+import { UserWithNotApp } from '@/types'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,7 +23,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const currentUser: User | null = await getCurrentUser();
+  const currentUser: UserWithNotApp | null = await getCurrentUser();
   return (
     <html lang="en">
         <body className={inter.className}>

@@ -5,7 +5,7 @@ import Hero from '@/components/Hero';
 import JobsList from '@/components/JobsList';
 import IntialModel from '@/components/models/IntialModel';
 import { useModal } from '@/hooks/useModel.store';
-import { jobWithCompanyWIthJobsWithUsers } from '@/types';
+import { UserWithNotApp, jobWithCompanyWIthJobsWithUsers } from '@/types';
 import { Company, Job, User, UserRole } from '@prisma/client';
 import Image from 'next/image'
 import { redirect } from 'next/navigation';

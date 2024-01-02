@@ -76,6 +76,8 @@ export async function POST(
             status: ApplicationStatus.APPLIED,
           },
           { status: ApplicationStatus.IN_REVIEW },
+          { status: ApplicationStatus.ACCEPTED },
+          { status: ApplicationStatus.REJECTED },
         ],
       },
     });
