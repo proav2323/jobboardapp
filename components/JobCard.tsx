@@ -26,6 +26,17 @@ export default function JobCard({job, currentUser}: {job: jobWithCompanyWIthJobs
      event.stopPropagation();
      event.preventDefault();
 
+    setIsLoading(true);
+
+     axios.post(`/api/job/${job.id}`).then(() => {
+       toast.success(`job application is appliad on the job ${job.title}`);
+       model.onClose();
+     }).catch((err) => {
+        toast.error(err.response.data)
+     }).finally(() => {
+        setIsLoading(false);
+     })
+
 
     }
 
@@ -62,8 +73,8 @@ export default function JobCard({job, currentUser}: {job: jobWithCompanyWIthJobs
          <CardDescription>Deadline: {format(job.deadline, "MM/dd/yyyy")}</CardDescription>
      </CardContent>
       {currentUser.role === UserRole.JOB_SEEKER && (<CardFooter className='flex justify-between'>
-            <Button onClick={save} variant={"outline"} className='gap-2'> <Save size={24} /> Save Job</Button>
-            <Button onClick={apply}>Apply</Button>
+            <Button disabled={isLoading} onClick={save} variant={"outline"} className='gap-2'> <Save size={24} /> Save Job</Button>
+            <Button disabled={isLoading} onClick={apply}>Apply</Button>
       </CardFooter>)}
     </Card>
   )

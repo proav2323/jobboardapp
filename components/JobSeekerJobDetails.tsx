@@ -19,6 +19,16 @@ export default function JobSeekerJobDetails({job}: {job: jobWithCompanyWIthJobsW
      event.stopPropagation();
      event.preventDefault();
 
+    setIsLoading(true);
+
+     axios.post(`/api/job/${job.id}`).then(() => {
+       toast.success(`job application is appliad on the job ${job.title}`);
+       model.onClose();
+     }).catch((err) => {
+        toast.error(err.response.data)
+     }).finally(() => {
+        setIsLoading(false);
+     })
 
     }
 

@@ -1,12 +1,17 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/lib/prismadb";
+import { UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
     const currentUser = await getCurrentUser();
 
-    if (!currentUser || !currentUser.companyId) {
+    if (
+      !currentUser ||
+      !currentUser.companyId ||
+      currentUser.role === UserRole.JOB_SEEKER
+    ) {
       return new NextResponse("unauthorized", { status: 401 });
     }
 
@@ -23,6 +28,7 @@ export async function POST(req: Request) {
         deadline: deadline,
         description: description,
         requirements: requirements,
+        userId: currentUser.id,
       },
     });
     console.log(job);

@@ -1,6 +1,6 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import { db } from "@/lib/prismadb";
-import { UserRole } from "@prisma/client";
+import { ApplicationStatus, UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function PUT(
@@ -40,5 +40,95 @@ export async function PUT(
     return NextResponse.json(savedUser);
   } catch (err: any) {
     return new NextResponse(err.message, { status: 500 });
+  }
+}
+
+export async function POST(
+  Req: Request,
+  { params }: { params: { jobId: string } }
+) {
+  try {
+    const currentUser = await getCurrentUser();
+
+    if (!currentUser || currentUser.role === UserRole.EMPLOYER) {
+      return new NextResponse("unaiuthorized", { status: 401 });
+    }
+
+    if (!params.jobId) {
+      return new NextResponse("send a id", { status: 404 });
+    }
+
+    const checkJobId = await db.job.findUnique({
+      where: {
+        id: params.jobId,
+      },
+    });
+
+    if (!checkJobId) {
+      return new NextResponse("no such job exists", { status: 404 });
+    }
+
+    const checkIfUserHasAplliadAlready = await db.jobApplication.findFirst({
+      where: {
+        AND: [{ userId: currentUser.id }, { jobId: params.jobId }],
+        OR: [
+          {
+            status: ApplicationStatus.APPLIED,
+          },
+          { status: ApplicationStatus.IN_REVIEW },
+        ],
+      },
+    });
+
+    if (checkIfUserHasAplliadAlready) {
+      return new NextResponse("you have already apllied", { status: 402 });
+    }
+
+    const jobApplication = await db.jobApplication.create({
+      data: {
+        userId: currentUser.id,
+        jobId: params.jobId,
+        status: ApplicationStatus.APPLIED,
+      },
+    });
+
+    const updatedJob = await db.job.update({
+      where: {
+        id: params.jobId,
+      },
+      data: {
+        applications: {
+          connect: {
+            id: jobApplication.id,
+          },
+        },
+      },
+      include: {
+        applications: true,
+      },
+    });
+
+    const updatedUser = await db.user.update({
+      where: {
+        id: currentUser.id,
+      },
+      data: {
+        jobApplications: {
+          connect: {
+            id: jobApplication.id,
+          },
+        },
+      },
+      include: {
+        jobApplications: true,
+      },
+    });
+
+    return NextResponse.json({
+      upadtedUser: updatedUser,
+      updatedJob: updatedJob,
+    });
+  } catch (Er: any) {
+    return new NextResponse(Er.message, { status: 500 });
   }
 }
