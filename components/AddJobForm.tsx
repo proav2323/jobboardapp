@@ -20,18 +20,19 @@ import toast from 'react-hot-toast'
 import axios from 'axios'
 import { modelStore } from '@/hooks/useModel.store'
 import { useRouter } from 'next/navigation'
+import { jobWithCompanyWIthJobsWithUsers } from '@/types'
 
-export default function AddJobForm({model}: {model: modelStore}) {
+export default function AddJobForm({model, isEditing, job}: {model: modelStore, isEditing?: boolean, job?: jobWithCompanyWIthJobsWithUsers}) {
   const currentDate = new Date();
   const tomorowwDate = new Date();
   tomorowwDate.setDate(currentDate.getDate() + 1);
   const form = useForm<z.infer<typeof AddJobSchema>>({
     resolver: zodResolver(AddJobSchema),
     defaultValues: {
-       title: "",
-       description: "",
-       requirements: "",
-       deadline: tomorowwDate
+       title: isEditing === true && isEditing !== undefined ? job?.title :"",
+       description: isEditing === true && isEditing !== undefined ? job?.description :"",
+       requirements: isEditing === true && isEditing !== undefined ? job?.requirements :"",
+       deadline: isEditing === true && isEditing !== undefined ? job?.deadline : tomorowwDate
     }
   });
 
@@ -52,6 +53,8 @@ export default function AddJobForm({model}: {model: modelStore}) {
   }
 
   const onSubmit = (values: z.infer<typeof AddJobSchema>) => {
+
+    if (isEditing === false || isEditing === undefined) {
    setIsLoading(true);
    axios.post("/api/job", values).then(() => {
     form.reset();
@@ -63,6 +66,19 @@ export default function AddJobForm({model}: {model: modelStore}) {
    }).finally(() => {
     setIsLoading(false);
    })
+    } else {
+   setIsLoading(true);
+   axios.put(`/api/job/${job?.id}/update`, values).then(() => {
+    form.reset();
+    model.onClose();
+    toast.success("job edited");
+    router.refresh();
+   }).catch((err) => {
+    toast.error(err.response.data)
+   }).finally(() => {
+    setIsLoading(false);
+   })
+    }
   }
   return (
     <Form {...form}>
@@ -143,7 +159,7 @@ export default function AddJobForm({model}: {model: modelStore}) {
       </PopoverContent>
     </Popover>
           </div>
-    <Button disabled={isLoading} type='submit'>Submit</Button>
+    <Button disabled={isLoading} type='submit'>{isEditing === true && isEditing !== undefined ? "Save" : "Add"}</Button>
       </form>
     </Form>
   )

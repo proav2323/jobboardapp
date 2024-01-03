@@ -15,7 +15,7 @@ import {
 import { Input } from './ui/input';
 
 
-export default function Info({form, disabled}: {form: UseFormReturn<z.infer<typeof RegisterFormSchema>>, disabled: boolean}) {
+export default function Info({form, disabled, password}: {password: boolean, form: UseFormReturn<z.infer<typeof RegisterFormSchema>>, disabled: boolean}) {
   return (
     <Form {...form}>
         <form className='space-y-8 flex flex-col' >
@@ -33,7 +33,7 @@ export default function Info({form, disabled}: {form: UseFormReturn<z.infer<type
             </FormItem>
           )}
         />
-        <FormField
+        {password && (<FormField
           control={form.control}
           disabled={disabled}
           name="password"
@@ -49,7 +49,7 @@ export default function Info({form, disabled}: {form: UseFormReturn<z.infer<type
               <FormMessage />
             </FormItem>
           )}
-        />
+        />)}
 
         <FormField
           control={form.control}

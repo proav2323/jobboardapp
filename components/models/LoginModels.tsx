@@ -20,7 +20,7 @@ export default function LoginModels() {
      model.onClose();
   }
   return (
-   <Dialog open={isOpen} onOpenChange={handleClose}>
+  <Dialog open={isOpen} onOpenChange={handleClose}>
   <DialogContent>
       <Tabs defaultValue='login' className='pt-10'>
       <TabsList className="grid w-full grid-cols-2">

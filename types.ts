@@ -28,9 +28,13 @@ export type appailcatios = Omit<JobApplication, "user" | "job"> & {
   };
 };
 
-export type UserWithNotApp = Omit<User, "notifications" | "jobApplications"> & {
+export type UserWithNotApp = Omit<
+  User,
+  "notifications" | "jobApplications" | "company"
+> & {
   notifications: notifcatioType[];
   jobApplications: appailcatios[];
+  company: Company;
 };
 
 export type notifcatioType = Omit<notifications, "user" | "job"> & {

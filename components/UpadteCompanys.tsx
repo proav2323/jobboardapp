@@ -28,7 +28,7 @@ import { Company, UserRole } from '@prisma/client';
 import { Separator } from './ui/separator';
 import { upadtePrfoileSchema } from '@/schema/upadteProfileScehma';
 
-export default function Company({form, disabled, onChange, companyId}: {form: UseFormReturn<z.infer<typeof RegisterFormSchema>>, disabled: boolean, onChange: (id: "role" | "resume" | "companyId", value: UserRole | string) => void, companyId: boolean}) {
+export default function UpadteCompany({form, disabled, onChange, companyId}: {form: UseFormReturn<z.infer<typeof upadtePrfoileSchema>>, disabled: boolean, onChange: (id: "resume", value: UserRole | string) => void, companyId: boolean}) {
   const [countries, setCountries] = useState<Company[]>([])
 
   useEffect(() => {
@@ -39,22 +39,6 @@ export default function Company({form, disabled, onChange, companyId}: {form: Us
   }, [])
   return (
     <div className='w-full flex flex-col'>
-    {companyId === true && (
-    <Select onValueChange={(value) => onChange("companyId", value)}>
-      <SelectTrigger className="w-full">
-        <SelectValue placeholder="Select your company" />
-      </SelectTrigger>
-      <SelectContent className='w-full'>
-        <SelectGroup>
-             {countries.map((data) => (
-              <SelectItem key={data.id} value={data.id}>{data.name}</SelectItem>
-             ))}
-        </SelectGroup>
-      </SelectContent>
-      <Separator className='mt-2'></Separator>
-      <span className='font-light mt-3 text-md mb-3'>Or Create your company</span>
-    </Select>
-      )}
         <Form {...form}>
         <form className='space-y-8 flex flex-col' >
         <FormField

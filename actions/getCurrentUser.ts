@@ -45,6 +45,7 @@ export default async function getCurrentUser() {
             job: true,
           },
         },
+        company: true,
       },
     });
     if (!user) {

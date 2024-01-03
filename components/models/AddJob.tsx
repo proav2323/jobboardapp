@@ -19,11 +19,17 @@ import Heading from '../Heading';
 export default function AddJob() {
   const model = useModal();
   const isOpen = model.isOpen && model.type === "addJob"
+  const {isEditingJob, job} = model.data;
+
+  if (isEditingJob === true && job === undefined) {
+     return null;
+  }
+
   return (
   <Dialog open={isOpen} onOpenChange={() => model.onClose()}>
    <DialogContent>
-    <Heading title='Add A New Job' subtitle='ned to hire someone for partiular job?' center />
-       <AddJobForm model={model} />
+    <Heading title={isEditingJob === true ? `Edit Job ${job?.title}` :'Add A New Job'} subtitle={isEditingJob === true ? "need to edit job?" :'need to hire someone for partiular job?'} center />
+       <AddJobForm model={model} isEditing={isEditingJob} job={job} />
     </DialogContent>
    </Dialog>
   )

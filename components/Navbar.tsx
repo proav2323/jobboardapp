@@ -97,7 +97,7 @@ const SignOut = async() => {
             {currentUser.role === UserRole.JOB_SEEKER && (<DropdownMenuItem onClick={() => {}}>Update Your Resume</DropdownMenuItem>)}
             {currentUser.role === UserRole.JOB_SEEKER && (<DropdownMenuItem onClick={() => {}}>see your saves jobs</DropdownMenuItem>)}
             {currentUser.role === UserRole.JOB_SEEKER ? (<DropdownMenuItem onClick={() => {}}>your job applicants</DropdownMenuItem>) : (<DropdownMenuItem onClick={() => model.onOpen("addJob")}>add a new job</DropdownMenuItem>)}
-            <DropdownMenuItem onClick={() => {}}>update your profile</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => model.onOpen("updateProfile", {currentUser: currentUser})}>update your profile</DropdownMenuItem>
           </DropdownMenuGroup>
         <DropdownMenuSeparator />
            <DropdownMenuGroup>

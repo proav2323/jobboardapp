@@ -14,6 +14,7 @@ import axios from 'axios';
 import Toast from "react-hot-toast"
 import { useRouter } from 'next/navigation';
 import { ScrollArea } from './ui/scroll-area';
+import { UserWithNotApp } from '@/types';
 
 
 enum steps {
@@ -43,7 +44,7 @@ export default function RegisterForm({redirect}: {redirect: boolean}) {
     const resume = form.watch("resume");
 
     let BodyContent = (
-        <Info form={form} disabled={isLoading} />
+        <Info password={true} form={form} disabled={isLoading} />
     );
 
     if (step === steps.ROLE) {
@@ -62,7 +63,7 @@ export default function RegisterForm({redirect}: {redirect: boolean}) {
 
    if (step === steps.COMPANY) {
         BodyContent = (
-            <Company form={form} disabled={isLoading} onChange={(id: "role" | "resume" | "companyId", value: UserRole | string) => setCustomValue(id, value)} />
+            <Company companyId={true} form={form} disabled={isLoading} onChange={(id: "role" | "resume" | "companyId", value: UserRole | string) => setCustomValue(id, value)} />
         );
     }
 
@@ -119,8 +120,8 @@ export default function RegisterForm({redirect}: {redirect: boolean}) {
      {BodyContent}
      <div className='flex flex-row justify-between items-center w-full pt-10'>
         {/* <form className='flex flex-row justify-between items-center w-full pt-10' onSubmit={(e) => role === UserRole.EMPLOYER ? step < steps.COMPANY ? onNext(e) : form.handleSubmit(onSubmit) : step < steps.RESUME ? onNext(e) : form.handleSubmit(onSubmit)} > */}
-                  {step >= steps.ROLE && (<Button type='button' onClick={back} className='w-[98%] m-2' variant={"secondary"}>Back</Button>)}
-        <Button onClick={form.handleSubmit(onSubmit)} className='w-[98%]' variant={"default"}>{role === UserRole.EMPLOYER ? step < steps.COMPANY ? "Next" : "Create" : step < steps.RESUME ? "Next" : "Create"}</Button>
+                  {step >= steps.ROLE && (<Button disabled={isLoading} type='button' onClick={back} className='w-[98%] m-2' variant={"secondary"}>Back</Button>)}
+        <Button disabled={isLoading} onClick={form.handleSubmit(onSubmit)} className='w-[98%]' variant={"default"}>{role === UserRole.EMPLOYER ? step < steps.COMPANY ? "Next" : "Create" : step < steps.RESUME ? "Next" : "Create"}</Button>
         {/* </form> */}
      </div>
     </div>

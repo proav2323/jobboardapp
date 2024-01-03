@@ -1,8 +1,8 @@
-import { jobWithCompanyWIthJobsWithUsers } from "@/types";
+import { UserWithNotApp, jobWithCompanyWIthJobsWithUsers } from "@/types";
 import { User } from "@prisma/client";
 import { create } from "zustand";
 
-export type modelType = "Login" | "addJob" | "JobDeatials";
+export type modelType = "Login" | "addJob" | "JobDeatials" | "updateProfile";
 
 export interface modelStore {
   type: modelType | null;
@@ -13,8 +13,9 @@ export interface modelStore {
 }
 
 interface modelData {
-  currentUser?: User;
+  currentUser?: UserWithNotApp;
   job?: jobWithCompanyWIthJobsWithUsers;
+  isEditingJob?: boolean;
 }
 
 export const useModal = create<modelStore>((set) => ({
