@@ -41,12 +41,15 @@ export default function UpdateProfileForm({currentUser, model}: {currentUser?: U
             defaultValues: {
                 Name: currentUser?.Name,
                 resume: role === UserRole.JOB_SEEKER ? currentUser?.resume! : undefined,
-                companyName: role === UserRole.EMPLOYER ? currentUser?.company.name : undefined,
-                companyIndustry: role === UserRole.EMPLOYER ? currentUser?.company.industry : undefined,
-                companyDescription: role === UserRole.EMPLOYER ? currentUser?.company.description : undefined
+                companyName: role === UserRole.EMPLOYER && currentUser?.company ? currentUser?.company.name : undefined,
+                companyIndustry: role === UserRole.EMPLOYER && currentUser?.company ? currentUser?.company.industry : undefined,
+                companyDescription: role === UserRole.EMPLOYER && currentUser?.company ? currentUser?.company.description : undefined
             }
         }
     )
+  if (!currentUser || !currentUser.company) {
+    return null;
+  }
 
     const resume = form.watch("resume");
 
