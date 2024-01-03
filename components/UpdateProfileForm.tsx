@@ -47,7 +47,7 @@ export default function UpdateProfileForm({currentUser, model}: {currentUser?: U
             }
         }
     )
-  if (!currentUser || !currentUser.company) {
+  if (!currentUser || (!currentUser.company && role === UserRole.EMPLOYER)) {
     return null;
   }
 
