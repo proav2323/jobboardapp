@@ -54,7 +54,7 @@ uploadTask.on('state_changed',
 
 }
 
-export default function Resume({resume, onChange, disabled}: {resume?: string, onChange: ((id: "role" | "resume" |"companyId", value: UserRole | string) => void) |((id: "resume", value: UserRole | string) => void), disabled: boolean}) {
+export default function Resume({resume, onChange, disabled}: {resume?: string, onChange: ((id: "role" | "resume" |"companyId" | "companyIndustry", value: UserRole | string) => void) |((id: "resume", value: UserRole | string) => void), disabled: boolean}) {
   const [isLoading, setIsLoading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 

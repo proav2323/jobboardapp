@@ -28,7 +28,25 @@ import { Company, UserRole } from '@prisma/client';
 import { Separator } from './ui/separator';
 import { upadtePrfoileSchema } from '@/schema/upadteProfileScehma';
 
-export default function Company({form, disabled, onChange, companyId}: {form: UseFormReturn<z.infer<typeof RegisterFormSchema>>, disabled: boolean, onChange: (id: "role" | "resume" | "companyId", value: UserRole | string) => void, companyId: boolean}) {
+export const comapnyIndustries = [
+  "food",
+  "computer",
+  "grocerries",
+  "store",
+  "beauty",
+  "clothes",
+  "fashion",
+  "games",
+  "electronics",
+  "eccentials store",
+  "middle school",
+  "high school",
+  "university",
+  "school",
+  "other"
+]
+
+export default function Company({form, disabled, onChange, companyId}: {form: UseFormReturn<z.infer<typeof RegisterFormSchema>>, disabled: boolean, onChange: (id: "role" | "resume" | "companyId" | "companyIndustry", value: UserRole | string) => void, companyId: boolean}) {
   const [countries, setCountries] = useState<Company[]>([])
 
   useEffect(() => {
@@ -55,6 +73,19 @@ export default function Company({form, disabled, onChange, companyId}: {form: Us
       <span className='font-light mt-3 text-md mb-3'>Or Create your company</span>
     </Select>
       )}
+      <Select onValueChange={(value) => onChange("companyIndustry", value)}>
+      <SelectTrigger className="w-full">
+        <SelectValue placeholder="Select your company industry" />
+      </SelectTrigger>
+      <SelectContent className='w-full'>
+        <SelectGroup>
+             {comapnyIndustries.map((data) => (
+              <SelectItem key={data} value={data}>{data}</SelectItem>
+             ))}
+        </SelectGroup>
+      </SelectContent>
+      <Separator className='mt-2'></Separator>
+    </Select>
         <Form {...form}>
         <form className='space-y-8 flex flex-col' >
         <FormField
@@ -71,21 +102,6 @@ export default function Company({form, disabled, onChange, companyId}: {form: Us
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          disabled={disabled}
-          name="companyIndustry"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>company Industry</FormLabel>
-              <FormControl>
-                <Input type='text' placeholder="" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         <FormField
           control={form.control}
           disabled={disabled}

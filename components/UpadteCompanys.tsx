@@ -27,8 +27,9 @@ import {
 import { Company, UserRole } from '@prisma/client';
 import { Separator } from './ui/separator';
 import { upadtePrfoileSchema } from '@/schema/upadteProfileScehma';
+import { comapnyIndustries } from './Company';
 
-export default function UpadteCompany({form, disabled, onChange, companyId}: {form: UseFormReturn<z.infer<typeof upadtePrfoileSchema>>, disabled: boolean, onChange: (id: "resume", value: UserRole | string) => void, companyId: boolean}) {
+export default function UpadteCompany({form, disabled, onChange, companyId}: {form: UseFormReturn<z.infer<typeof upadtePrfoileSchema>>, disabled: boolean, onChange: (id: "resume" | "companyIndustry", value: UserRole | string) => void, companyId: boolean}) {
   const [countries, setCountries] = useState<Company[]>([])
 
   useEffect(() => {
@@ -39,22 +40,21 @@ export default function UpadteCompany({form, disabled, onChange, companyId}: {fo
   }, [])
   return (
     <div className='w-full flex flex-col'>
+            <Select onValueChange={(value) => onChange("companyIndustry", value)}>
+      <SelectTrigger className="w-full">
+        <SelectValue placeholder="Select your company industry" />
+      </SelectTrigger>
+      <SelectContent className='w-full'>
+        <SelectGroup>
+             {comapnyIndustries.map((data) => (
+              <SelectItem key={data} value={data}>{data}</SelectItem>
+             ))}
+        </SelectGroup>
+      </SelectContent>
+      <Separator className='mt-2'></Separator>
+    </Select>
         <Form {...form}>
         <form className='space-y-8 flex flex-col' >
-        <FormField
-        disabled={disabled}
-          control={form.control}
-          name="companyName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Company Name</FormLabel>
-              <FormControl>
-                <Input placeholder="" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <FormField
           control={form.control}
           disabled={disabled}

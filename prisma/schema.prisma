@@ -57,6 +57,8 @@ model Company {
   industry    String
   jobs        Job[]
   Users       User[]
+
+  @@index([name, description, industry])
 }
 
 model Job {
@@ -71,6 +73,8 @@ model Job {
   User          User             @relation(fields: [userId], references: [id])
   userId        String           @db.ObjectId
   notifications notifications[]
+
+  @@index([title, description])
 }
 
 model JobApplication {

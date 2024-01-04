@@ -5,9 +5,11 @@ import Heading from './Heading'
 import Image from 'next/image'
 import { Button } from './ui/button'
 import { useModal } from '@/hooks/useModel.store'
+import { useRouter } from 'next/navigation'
 
 export default function Hero({currentUser}: {currentUser: User}) {
     const model = useModal();
+    const router = useRouter();
   return (
     <>
     {currentUser.role === UserRole.JOB_SEEKER ? (
@@ -16,7 +18,7 @@ export default function Hero({currentUser}: {currentUser: User}) {
         <div className='w-full absolute h-full bg-black/80 top-0 left-0' />
         <div className='flex flex-col flex-1 w-full absolute m-auto text-white'>
             <Heading title='find jobs that suits you' subtitle='Looking For A job?' center />
-            <Button variant="default" className='md:w-[10%] w-[90%] m-auto mt-3'>Browse Jobs</Button>
+            <Button onClick={() => router.push("/jobs")} variant="default" className='md:w-[10%] w-[90%] m-auto mt-3'>Browse Jobs</Button>
         </div>
     </div>
     ) : (

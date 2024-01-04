@@ -23,7 +23,7 @@ export default async function Home() {
     <ClientOnly>
       <div className='flex flex-col gap-2'>
        <Hero currentUser={currentUser} />
-       <JobsList jobs={jobs} currentUser={currentUser} title={currentUser.role === UserRole.JOB_SEEKER ? undefined : "Your Jobs"} subtitle={currentUser.role === UserRole.JOB_SEEKER ? undefined : "Your posted jobs"}  />
+       <JobsList jobs={jobs} currentUser={currentUser} title={currentUser.role === UserRole.JOB_SEEKER ? undefined : "Your Jobs"} subtitle={currentUser.role === UserRole.JOB_SEEKER ? undefined : "Your posted jobs"} url='/'  />
      </div>
     </ClientOnly>
   )

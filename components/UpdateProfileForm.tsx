@@ -63,13 +63,13 @@ export default function UpdateProfileForm({currentUser, model, sstep}: {currentU
         );
     }
 
-        const setCustomValue = (id: "resume", value: UserRole | string) => {
+        const setCustomValue = (id: "resume" | "companyIndustry", value: UserRole | string) => {
          form.setValue(id, value);
     }
 
    if (step === upadteSteps.COMPANY) {
         BodyContent = (
-            <UpadteCompany companyId={false} form={form} disabled={isLoading} onChange={(id: "resume", value: UserRole | string) => setCustomValue(id, value)} />
+            <UpadteCompany companyId={false} form={form} disabled={isLoading} onChange={(id: "resume" | "companyIndustry", value: UserRole | string) => setCustomValue(id, value)} />
         );
     }
 

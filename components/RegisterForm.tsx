@@ -63,7 +63,7 @@ export default function RegisterForm({redirect}: {redirect: boolean}) {
 
    if (step === steps.COMPANY) {
         BodyContent = (
-            <Company companyId={true} form={form} disabled={isLoading} onChange={(id: "role" | "resume" | "companyId", value: UserRole | string) => setCustomValue(id, value)} />
+            <Company companyId={true} form={form} disabled={isLoading} onChange={(id: "role" | "resume" | "companyId" | "companyIndustry", value: UserRole | string) => setCustomValue(id, value)} />
         );
     }
 
@@ -111,7 +111,7 @@ export default function RegisterForm({redirect}: {redirect: boolean}) {
           }  
     }
 
-    const setCustomValue = (id: "role" | "resume" | "companyId", value: UserRole | string) => {
+    const setCustomValue = (id: "role" | "resume" | "companyId" | "companyIndustry", value: UserRole | string) => {
          form.setValue(id, value);
     }
 
