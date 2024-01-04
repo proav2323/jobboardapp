@@ -21,17 +21,17 @@ import { modelStore } from '@/hooks/useModel.store';
 import { ro } from 'date-fns/locale';
 
 
-enum steps {
+export enum upadteSteps {
     INFO = 0,
     COMPANY = 1,
     RESUME = 2
 }
 
-export default function UpdateProfileForm({currentUser, model}: {currentUser?: UserWithNotApp, model: modelStore}) {
+export default function UpdateProfileForm({currentUser, model, sstep}: {currentUser?: UserWithNotApp, model: modelStore, sstep?: upadteSteps}) {
 
     const role = currentUser?.role;
 
-     const [step, setStep] = useState(steps.INFO);
+  const [step, setStep] = useState(sstep !== undefined ? sstep : upadteSteps.INFO);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -57,7 +57,7 @@ export default function UpdateProfileForm({currentUser, model}: {currentUser?: U
         <UpadtedInfo password={false} form={form} disabled={isLoading} />
     );
 
-    if (step === steps.RESUME) {
+    if (step === upadteSteps.RESUME) {
         BodyContent = (
             <Resume resume={resume} disabled={isLoading} onChange={(id: "resume", value: UserRole | string) => setCustomValue(id, value)} />
         );
@@ -67,24 +67,24 @@ export default function UpdateProfileForm({currentUser, model}: {currentUser?: U
          form.setValue(id, value);
     }
 
-   if (step === steps.COMPANY) {
+   if (step === upadteSteps.COMPANY) {
         BodyContent = (
             <UpadteCompany companyId={false} form={form} disabled={isLoading} onChange={(id: "resume", value: UserRole | string) => setCustomValue(id, value)} />
         );
     }
 
         const back = () => {
-             setStep(steps.INFO);
+             setStep(upadteSteps.INFO);
     }
 
         const onSubmit = (values: z.infer<typeof upadtePrfoileSchema>) => {
 
-        if (step !== steps.COMPANY && step !== steps.RESUME) {
-          if (step === steps.INFO) {
+        if (step !== upadteSteps.COMPANY && step !== upadteSteps.RESUME) {
+          if (step === upadteSteps.INFO) {
             if (role === UserRole.EMPLOYER) {
-                return setStep(steps.COMPANY);
+                return setStep(upadteSteps.COMPANY);
             } else if (role === UserRole.JOB_SEEKER) {
-                return setStep(steps.RESUME);
+                return setStep(upadteSteps.RESUME);
             }
           }
         }
@@ -117,8 +117,8 @@ export default function UpdateProfileForm({currentUser, model}: {currentUser?: U
      {BodyContent}
      <div className='flex flex-row justify-between items-center w-full pt-10'>
         {/* <form className='flex flex-row justify-between items-center w-full pt-10' onSubmit={(e) => role === UserRole.EMPLOYER ? step < steps.COMPANY ? onNext(e) : form.handleSubmit(onSubmit) : step < steps.RESUME ? onNext(e) : form.handleSubmit(onSubmit)} > */}
-                  {step > steps.INFO && (<Button disabled={isLoading} type='button' onClick={back} className='w-[98%] m-2' variant={"secondary"}>Back</Button>)}
-        <Button disabled={isLoading} onClick={form.handleSubmit(onSubmit)} className='w-[98%]' variant={"default"}>{role === UserRole.EMPLOYER ? step < steps.COMPANY ? "Next" : "update" : step < steps.RESUME ? "Next" : "update"}</Button>
+                  {step > upadteSteps.INFO && (<Button disabled={isLoading} type='button' onClick={back} className='w-[98%] m-2' variant={"secondary"}>Back</Button>)}
+        <Button disabled={isLoading} onClick={form.handleSubmit(onSubmit)} className='w-[98%]' variant={"default"}>{role === UserRole.EMPLOYER ? step < upadteSteps.COMPANY ? "Next" : "update" : step < upadteSteps.RESUME ? "Next" : "update"}</Button>
         {/* </form> */}
      </div>
     </div>

@@ -1,3 +1,4 @@
+import { upadteSteps } from "@/components/UpdateProfileForm";
 import { UserWithNotApp, jobWithCompanyWIthJobsWithUsers } from "@/types";
 import { User } from "@prisma/client";
 import { create } from "zustand";
@@ -16,6 +17,7 @@ interface modelData {
   currentUser?: UserWithNotApp;
   job?: jobWithCompanyWIthJobsWithUsers;
   isEditingJob?: boolean;
+  step?: upadteSteps;
 }
 
 export const useModal = create<modelStore>((set) => ({

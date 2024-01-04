@@ -18,6 +18,7 @@ import { ScrollArea } from './ui/scroll-area';
 import NotificationCard from './NotificationCard';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { upadteSteps } from './UpdateProfileForm';
 
 export default function Navbar({currentUser}: {currentUser: UserWithNotApp | null}) {
 
@@ -94,7 +95,7 @@ const SignOut = async() => {
        <DropdownMenuContent className='w-56 text-black dark:text-white'>
         <DropdownMenuLabel>{currentUser.Name}</DropdownMenuLabel>
           <DropdownMenuGroup>
-            {currentUser.role === UserRole.JOB_SEEKER && (<DropdownMenuItem onClick={() => {}}>Update Your Resume</DropdownMenuItem>)}
+            {currentUser.role === UserRole.JOB_SEEKER && (<DropdownMenuItem onClick={() => model.onOpen("updateProfile", {currentUser: currentUser, step: upadteSteps.RESUME})}>Update Your Resume</DropdownMenuItem>)}
             {currentUser.role === UserRole.JOB_SEEKER && (<DropdownMenuItem onClick={() => {}}>see your saves jobs</DropdownMenuItem>)}
             {currentUser.role === UserRole.JOB_SEEKER ? (<DropdownMenuItem onClick={() => {}}>your job applicants</DropdownMenuItem>) : (<DropdownMenuItem onClick={() => model.onOpen("addJob")}>add a new job</DropdownMenuItem>)}
             <DropdownMenuItem onClick={() => model.onOpen("updateProfile", {currentUser: currentUser})}>update your profile</DropdownMenuItem>

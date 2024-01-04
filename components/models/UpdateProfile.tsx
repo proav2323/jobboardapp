@@ -8,12 +8,12 @@ import Heading from '../Heading';
 export default function UpdateProfile() {
     const model = useModal();
     const isOpen = model.type === "updateProfile" && model.isOpen;
-    const {currentUser} = model.data;
+    const {currentUser, step} = model.data;
   return (
     <Dialog open={isOpen} onOpenChange={() => model.onClose()}>
         <DialogContent>
           <Heading title='Edit Profile' subtitle='want to change your name' center />
-              <UpdateProfileForm model={model} currentUser={currentUser} />
+              <UpdateProfileForm model={model} currentUser={currentUser} sstep={step} />
         </DialogContent>
     </Dialog>
   )
