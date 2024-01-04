@@ -10,6 +10,7 @@ import { User } from '@prisma/client'
 import getCurrentUser from '@/actions/getCurrentUser'
 import ToasterProvider from '@/components/providers/ToasterPrivder'
 import { UserWithNotApp } from '@/types'
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,7 +27,8 @@ export default async function RootLayout({
   const currentUser: UserWithNotApp | null = await getCurrentUser();
   return (
     <html lang="en">
-        <body className={inter.className}>
+    <body className={inter.className}>
+      <Analytics />
     <ClientOnly>
       <ThemeProvider 
             attribute="class"
