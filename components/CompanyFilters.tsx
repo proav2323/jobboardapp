@@ -99,7 +99,7 @@ export default function CompanyFilters({}: {}) {
     </div>
     </div>
 
-    <div className='w-full flex flex-row justify-center items-center gap-2'>
+    <div className='w-full flex flex-row justify-center items-center gap-2 md:hidden'>
       <Popover>
         <PopoverTrigger>
            <Button>filters</Button>
