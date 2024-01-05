@@ -29,6 +29,7 @@ export default async function getSavedJobs() {
               company: {
                 include: {
                   jobs: true,
+                  Users: true,
                 },
               },
               User: true,
