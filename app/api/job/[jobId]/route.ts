@@ -162,3 +162,43 @@ export async function POST(
     return new NextResponse(Er.message, { status: 500 });
   }
 }
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { jobId: string } }
+) {
+  try {
+    const currentUser = await getCurrentUser();
+
+    if (!currentUser || currentUser.role === UserRole.EMPLOYER) {
+      return new NextResponse("unauthorized", { status: 401 });
+    }
+
+    if (!params.jobId) {
+      return new NextResponse("soemhting went wrong", { status: 401 });
+    }
+
+    let favIds = [...(currentUser.yourSavedJobs || [])];
+
+    const item = favIds.find((data) => data === params.jobId);
+
+    if (item === undefined) {
+      return NextResponse.json(currentUser);
+    }
+
+    favIds = favIds.filter((data) => data !== params.jobId);
+
+    const savedUser = await db.user.update({
+      where: {
+        id: currentUser.id,
+      },
+      data: {
+        yourSavedJobs: favIds,
+      },
+    });
+
+    return NextResponse.json(savedUser);
+  } catch (err: any) {
+    return new NextResponse(err.message, { status: 500 });
+  }
+}

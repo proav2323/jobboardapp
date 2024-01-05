@@ -67,3 +67,32 @@ export async function PUT(
     return new NextResponse(Er.message, { status: 500 });
   }
 }
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { jobId: string; appId: string } }
+) {
+  try {
+    const currentUser = await getCurrentUser();
+
+    if (!params.jobId || !params.appId) {
+      return new NextResponse("invalid url", { status: 404 });
+    }
+
+    if (!currentUser) {
+      return new NextResponse("unauthorzied", { status: 401 });
+    }
+
+    const jobApp = await db.jobApplication.deleteMany({
+      where: {
+        id: params.appId,
+        jobId: params.jobId,
+        userId: currentUser.id,
+      },
+    });
+
+    return NextResponse.json(jobApp);
+  } catch (Er: any) {
+    return new NextResponse(Er.message, { status: 500 });
+  }
+}

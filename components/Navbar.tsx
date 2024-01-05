@@ -96,8 +96,8 @@ const SignOut = async() => {
         <DropdownMenuLabel>{currentUser.Name}</DropdownMenuLabel>
           <DropdownMenuGroup>
             {currentUser.role === UserRole.JOB_SEEKER && (<DropdownMenuItem onClick={() => model.onOpen("updateProfile", {currentUser: currentUser, step: upadteSteps.RESUME})}>Update Your Resume</DropdownMenuItem>)}
-            {currentUser.role === UserRole.JOB_SEEKER && (<DropdownMenuItem onClick={() => {}}>see your saves jobs</DropdownMenuItem>)}
-            {currentUser.role === UserRole.JOB_SEEKER ? (<DropdownMenuItem onClick={() => {}}>your job applicants</DropdownMenuItem>) : (<DropdownMenuItem onClick={() => model.onOpen("addJob")}>add a new job</DropdownMenuItem>)}
+            {currentUser.role === UserRole.JOB_SEEKER && (<DropdownMenuItem onClick={() => router.push("/savedJobs")}>see your saves jobs</DropdownMenuItem>)}
+            {currentUser.role === UserRole.JOB_SEEKER ? (<DropdownMenuItem onClick={() => router.push("/jobApplications")}>your job applicants</DropdownMenuItem>) : (<DropdownMenuItem onClick={() => model.onOpen("addJob")}>add a new job</DropdownMenuItem>)}
             <DropdownMenuItem onClick={() => model.onOpen("updateProfile", {currentUser: currentUser})}>update your profile</DropdownMenuItem>
           </DropdownMenuGroup>
         <DropdownMenuSeparator />

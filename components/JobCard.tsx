@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card"
 import { format } from 'date-fns'
 import { Button } from './ui/button'
-import { Save } from 'lucide-react'
+import { Delete, DeleteIcon, Save, Trash } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useModal } from '@/hooks/useModel.store'
 import { UserWithNotApp, jobWithCompanyWIthJobsWithUsers } from '@/types'
@@ -21,7 +21,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { CiMenuKebab } from "react-icons/ci";
 import AlertDailgo from './AlertDailgo'
 
-export default function JobCard({job, currentUser}: {job: jobWithCompanyWIthJobsWithUsers, currentUser: UserWithNotApp}) {
+export default function JobCard({job, currentUser, removeJob = false}: {job: jobWithCompanyWIthJobsWithUsers, currentUser: UserWithNotApp, removeJob?: boolean}) {
     const model = useModal();
     const [isLoading, setIsLoading] = useState(false);
     const [open, setIsOpen] = useState(false);
@@ -51,7 +51,21 @@ export default function JobCard({job, currentUser}: {job: jobWithCompanyWIthJobs
      event.stopPropagation();
      event.preventDefault();
 
+     if (removeJob === true) {
+
     setIsLoading(true);
+
+     axios.delete(`/api/job/${job.id}`).then(() => {
+       toast.success("job removed");
+       model.onClose();
+       Router.refresh();
+     }).catch((err) => {
+        toast.error(err.response.data)
+     }).finally(() => {
+        setIsLoading(false);
+     })
+     } else {
+      setIsLoading(true);
 
      axios.put(`/api/job/${job.id}`).then(() => {
        toast.success("job saved");
@@ -62,6 +76,7 @@ export default function JobCard({job, currentUser}: {job: jobWithCompanyWIthJobs
      }).finally(() => {
         setIsLoading(false);
      })
+     }
 
     }
 
@@ -120,7 +135,7 @@ export default function JobCard({job, currentUser}: {job: jobWithCompanyWIthJobs
          <CardDescription>Deadline: {format(job.deadline, "MM/dd/yyyy")}</CardDescription>
      </CardContent>
       {currentUser.role === UserRole.JOB_SEEKER && (<CardFooter className='flex justify-between'>
-            <Button disabled={isLoading} onClick={save} variant={"outline"} className='gap-2'> <Save size={24} /> Save Job</Button>
+            <Button disabled={isLoading} onClick={save} variant={"outline"} className='gap-2'> {removeJob ? <Trash size={24} /> :<Save size={24} />} {removeJob ? "Remove Job" : "Save Job"}</Button>
             <Button disabled={isLoading} onClick={apply}>Apply</Button>
       </CardFooter>)}
 

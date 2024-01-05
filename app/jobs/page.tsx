@@ -32,7 +32,7 @@ export default async function page({searchParams}: {searchParams: Params}) {
         </ClientOnly>
       </div>
       <div className='flex-[0.8] w-full '>
-        <JobsList jobs={jobs} currentUser={currentUser} title='Jobs found' subtitle='jobs that are found with the filters' url='/jobs' />
+        <JobsList showButton jobs={jobs} currentUser={currentUser} title='Jobs found' subtitle='jobs that are found with the filters' url='/jobs' />
       </div>
     </div>
   )
