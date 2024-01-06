@@ -8,10 +8,11 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useModal } from '@/hooks/useModel.store';
 
-export default function JobSeekerJobDetails({job}: {job: jobWithCompanyWIthJobsWithUsers}) {
+export default function JobSeekerJobDetails({job, disabled = false}: {job: jobWithCompanyWIthJobsWithUsers, disabled?: boolean}) {
 
-    const jobDesriptions: string[] = job.description.split(":");
-    const jobRequirements: string[] = job.requirements.split(":");
+    let jobDesriptions: string[] = job.description.split("`");
+    let jobRequirements: string[] = job.requirements.split("`");
+
     const model = useModal();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -80,8 +81,8 @@ export default function JobSeekerJobDetails({job}: {job: jobWithCompanyWIthJobsW
         <span className='dark:text-white text-black text-lg'>Deadline: {format(job.deadline, "MM/dd/yyyy")}</span>
 
         <div className='flex flex-row justify-between items-center w-full mt-2'>
-            <Button disabled={isLoading} onClick={save} variant={"outline"} className='gap-2'> <Save size={24} /> Save Job</Button>
-            <Button disabled={isLoading} onClick={apply}>Apply</Button>
+            <Button disabled={isLoading || disabled} onClick={save} variant={"outline"} className='gap-2'> <Save size={24} /> Save Job</Button>
+            <Button disabled={isLoading || disabled} onClick={apply}>Apply</Button>
         </div>
     </div>
   )

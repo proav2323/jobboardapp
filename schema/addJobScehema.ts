@@ -4,10 +4,12 @@ export const AddJobSchema = z.object({
     message: "title is required",
   }),
   description: z.string().min(1, {
-    message: "description is required",
+    message: "add one key point to description",
   }),
   requirements: z.string().min(1, {
-    message: "requirements is required",
+    message: "add one key point to requirements",
   }),
   deadline: z.date(),
+  descriptionText: z.string().optional(),
+  requirementText: z.string().optional(),
 });
