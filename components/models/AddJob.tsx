@@ -27,7 +27,7 @@ export default function AddJob() {
 
   return (
   <Dialog open={isOpen} onOpenChange={() => model.onClose()}>
-   <DialogContent className=' overflow-y-scroll max-h-screen my-2'>
+   <DialogContent className=' overflow-y-scroll max-h-screen'>
     <Heading title={isEditingJob === true ? `Edit Job ${job?.title}` :'Add A New Job'} subtitle={isEditingJob === true ? "need to edit job?" :'need to hire someone for partiular job?'} center />
        <AddJobForm model={model} isEditing={isEditingJob} job={job} />
     </DialogContent>
