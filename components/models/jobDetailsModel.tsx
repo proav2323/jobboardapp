@@ -49,6 +49,7 @@ export default function JobDetailsModel() {
    <DialogContent>
     <DialogHeader className='flex flex-row justify-between items-center'>
       <Heading title={job.title} subtitle={`${job.title} job details`} />
+      {currentUser.role === UserRole.EMPLOYER && (
       <div className='flex flex-row items-center'>
         <TooltipProvider>
           <Tooltip>
@@ -72,6 +73,7 @@ export default function JobDetailsModel() {
           </Tooltip>
         </TooltipProvider>
       </div>
+      )}
     </DialogHeader>
         {currentUser.role === UserRole.EMPLOYER ? (
           <>
