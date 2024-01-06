@@ -188,7 +188,7 @@ export default function AddJobForm({model, isEditing, job}: {model: modelStore, 
             </FormItem>
           )}
         />
-        <Button type='button' className='mx-2 mt-8' onClick={() => addValue(descriptionText, setDescripionArray, "descriptionText")}>add point</Button>
+        <Button type='button' className='mx-2 md:mt-8 mt-16' onClick={() => addValue(descriptionText, setDescripionArray, "descriptionText")}>add point</Button>
         </div>
        {requirementsArray && requirementsArray.length > 0 && (
        <ScrollArea className='h-[5vh]'>
@@ -229,7 +229,7 @@ export default function AddJobForm({model, isEditing, job}: {model: modelStore, 
             </FormItem>
           )}
         />
-        <Button type='button' className='mx-2 mt-8' onClick={() => addValue(requitrementsText, setreqArray, "requirementText")}>add point</Button>
+        <Button type='button' className='mx-2 md:mt-8 mt-16' onClick={() => addValue(requitrementsText, setreqArray, "requirementText")}>add point</Button>
         </div>
         
         <div className='flex flex-col w-full gap-2'>
