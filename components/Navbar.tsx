@@ -19,12 +19,14 @@ import NotificationCard from './NotificationCard';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { upadteSteps } from './UpdateProfileForm';
+import { PopoverClose } from '@radix-ui/react-popover';
 
 export default function Navbar({currentUser}: {currentUser: UserWithNotApp | null}) {
 
   const [doBackground, setDoBackground] = useState(false);
   const notSeenNott = currentUser?.notifications.filter((not) => not.seen === false)
   const [notSeenNot, setNotSeen] = useState(notSeenNott);
+  const [search, setSearch] = useState("");
   const model = useModal();
   const router = useRouter();
 
@@ -63,8 +65,8 @@ const SignOut = async() => {
       </PopoverTrigger>
       <PopoverContent className='md:w-[35vw] w-[85vw]'>
       <div className='flex flex-row w-full items-center gap-2'>
-         <input placeholder='Search' type='text' className=' rounded-md flex-1 bg-transparent w-full p-4 focus:border-neutral-900 dark:focus:border-white border-[1px] ' />
-         <Button><Search /></Button>
+         <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder='Search' type='text' className=' rounded-md flex-1 bg-transparent w-full p-4 focus:border-neutral-900 dark:focus:border-white border-[1px] ' />
+         <PopoverClose><Button onClick={() => router.push(`/search?search=${search}`)}><Search /></Button></PopoverClose>
       </div>
       </PopoverContent>
     </Popover>)}
@@ -78,12 +80,16 @@ const SignOut = async() => {
         </div>
       </PopoverTrigger>
       <PopoverContent className='md:w-[35vw] w-[85vw] h-[35vh]'>
-      <div className='flex flex-row w-full items-center gap-2'>
-         <ScrollArea className='w-full h-[30vh]'>
+      <div className='flex flex-row w-full items-center gap-2 h-full'>
+        {currentUser.notifications.length > 0 ? (
+                   <ScrollArea className='w-full h-[30vh]'>
           {currentUser.notifications.map((not) => (
              <NotificationCard notification={not} key={not.id} />
           ))}
          </ScrollArea>
+        ) : (
+          <span className='text-center my-auto text-lg dark:text-white text-black mx-auto'>no notifications</span>
+        )}
       </div>
       </PopoverContent>
     </Popover>)}
